@@ -1,1 +1,328 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Autoatendimento | Casa Contábil</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+<script src="precos.js" defer></script>
+<script src="script.js" defer></script>
+<script src="atendimento.js" defer></script>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">CC</span>
+      <span class="brand-name">Casa Contábil</span>
+    </a>
+
+    <nav class="main-nav" id="main-nav">
+      <a href="index.html">Início</a>
+      <a href="#simulacao">Honorários</a>
+      <a href="#documentacao">Documentação</a>
+      <a href="#cadastro">Solicitação</a>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle"
+      aria-label="Abrir menu"
+      aria-expanded="false"
+      aria-controls="main-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="portal-hero">
+  <p class="eyebrow eyebrow-light">— Casa Contábil Digital</p>
+  <h1>Central de Autoatendimento</h1>
+  <p>Escolha seu serviço, consulte os honorários e prepare sua documentação.</p>
+</section>
+
+<main class="portal-main">
+
+  <div class="notice">
+    <strong>Ambiente de testes.</strong>
+    Não informe dados pessoais reais nem efetue pagamentos.
+    O envio externo está desativado nesta versão.
+  </div>
+
+  <form id="formAtendimento">
+
+    <section class="portal-card" id="simulacao">
+      <p class="eyebrow">Etapa 01 — Serviço</p>
+      <h2>🏢 Perfil e serviço desejado</h2>
+
+      <div class="form-grid">
+
+        <label class="field">
+          Serviço
+          <select id="servico" name="servico" required></select>
+        </label>
+
+        <label class="field">
+          Perfil do cliente
+          <select id="perfil" name="perfil" required>
+            <option value="empresa">Empresa</option>
+            <option value="mei">MEI</option>
+            <option value="rural">Produtor rural</option>
+            <option value="autonomo">Autônomo</option>
+            <option value="pf">Pessoa física</option>
+            <option value="nova">Empresa em abertura</option>
+          </select>
+        </label>
+
+        <label class="field">
+          Atividade principal
+          <select id="atividade" name="atividade">
+            <option>Serviços</option>
+            <option>Comércio</option>
+            <option>Indústria</option>
+            <option>Multissetorial</option>
+            <option>Transporte</option>
+            <option>Rural</option>
+            <option>Tecnologia</option>
+            <option>Não se aplica</option>
+          </select>
+        </label>
+
+        <label class="field" id="regimeBox">
+          Regime tributário
+          <select id="regime" name="regime">
+            <option>Simples Nacional</option>
+            <option>Lucro Presumido</option>
+            <option>Lucro Real</option>
+            <option>MEI</option>
+            <option>Não definido</option>
+          </select>
+        </label>
+
+        <label class="field" id="faixaBox">
+          Faturamento anual
+          <select id="faixa" name="faixa"></select>
+        </label>
+
+        <label class="field" id="vinculosBox">
+          Quantidade de vínculos trabalhistas
+          <input type="number" id="vinculos" name="vinculos"
+            min="0" max="10000" step="1" value="0">
+        </label>
+
+        <label class="field" id="quantidadeBox" hidden>
+          Quantidade de serviços ou horas
+          <input type="number" id="quantidade" name="quantidade"
+            min="1" max="1000" step="1" value="1">
+        </label>
+
+      </div>
+
+      <h3>💰 Etapa 02 — Estimativa de honorários</h3>
+
+      <div class="price-panel" aria-live="polite">
+        <span>Valor estimado</span>
+        <strong id="valorEstimado">—</strong>
+        <p id="detalhePreco"></p>
+      </div>
+
+      <p class="note">
+        Os valores não incluem tributos, taxas públicas,
+        despesas de terceiros ou serviços adicionais.
+        A proposta definitiva depende de análise profissional.
+      </p>
+    </section>
+
+    <section class="portal-card" id="documentacao">
+      <p class="eyebrow">Etapa 03 — Documentação</p>
+      <h2>📋 Checklist personalizado</h2>
+
+      <p>
+        Marque os documentos que já possui.
+        A lista será ajustada conforme suas escolhas.
+      </p>
+
+      <p id="progressoTexto" role="status"></p>
+
+      <div class="progress-track" aria-hidden="true">
+        <div class="progress-fill" id="progressoBarra"></div>
+      </div>
+
+      <div id="listaChecklist"></div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" id="copiarChecklist">
+          Copiar checklist
+        </button>
+        <button type="button" class="btn btn-secondary" id="baixarChecklist">
+          Salvar checklist
+        </button>
+      </div>
+
+      <p id="checkStatus" class="form-status" role="status"></p>
+
+      <p class="note">
+        Não envie documentos, certificados digitais ou senhas.
+        A entrega será combinada por um canal seguro.
+      </p>
+    </section>
+
+    <section class="portal-card" id="cadastro">
+      <p class="eyebrow">Etapa 04 — Solicitação</p>
+      <h2>👤 Dados para elaboração da proposta</h2>
+
+      <div class="form-grid">
+
+        <label class="field">
+          Nome do responsável *
+          <input name="nome" required maxlength="120"
+            autocomplete="name">
+        </label>
+
+        <label class="field">
+          E-mail *
+          <input type="email" name="email"
+            required maxlength="150" autocomplete="email">
+        </label>
+
+        <label class="field">
+          WhatsApp com DDD *
+          <input type="tel" name="whatsapp"
+            required maxlength="25" autocomplete="tel">
+        </label>
+
+        <label class="field">
+          Razão social
+          <input name="empresa" maxlength="150"
+            autocomplete="organization">
+        </label>
+
+        <label class="field">
+          CNPJ, se existente
+          <input name="cnpj" maxlength="18">
+        </label>
+
+        <label class="field">
+          Cidade e estado *
+          <input name="cidade" required maxlength="100">
+        </label>
+
+        <label class="field">
+          Prazo desejado
+          <select name="prazo">
+            <option>Sem urgência</option>
+            <option>Até 7 dias</option>
+            <option>Até 15 dias</option>
+            <option>Até 30 dias</option>
+          </select>
+        </label>
+
+        <label class="field">
+          Notas fiscais por mês
+          <select name="notas">
+            <option>Não informado</option>
+            <option>Nenhuma</option>
+            <option>Até 30</option>
+            <option>31 a 100</option>
+            <option>101 a 500</option>
+            <option>Acima de 500</option>
+          </select>
+        </label>
+
+        <label class="field full-width">
+          Informações adicionais
+          <textarea name="mensagem" rows="4"
+            maxlength="2000"
+            placeholder="Descreva sua necessidade. Não inclua dados sensíveis."></textarea>
+        </label>
+
+      </div>
+
+      <div class="honeypot" aria-hidden="true">
+        <label>
+          Deixe vazio
+          <input name="_honey" tabindex="-1" autocomplete="off">
+        </label>
+      </div>
+
+      <label class="checklist-item">
+        <input type="checkbox" name="privacidade"
+          value="Sim" required>
+        <span>
+          Li o <a href="privacidade.html" target="_blank"
+          rel="noopener noreferrer"><u>aviso de privacidade</u></a>
+          e estou ciente do tratamento dos dados para atendimento.
+        </span>
+      </label>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-gold" id="enviar">
+          Simular envio da solicitação
+        </button>
+
+        <button type="button" class="btn btn-secondary" id="copiarResumo">
+          Copiar resumo
+        </button>
+      </div>
+
+      <p id="formStatus" class="form-status" role="status"
+        aria-live="polite"></p>
+    </section>
+
+  </form>
+
+  <section class="portal-card" id="resultado" hidden>
+    <h2 id="resultadoTitulo">Solicitação preparada</h2>
+
+    <p>Protocolo: <strong id="protocolo"></strong></p>
+    <p id="resultadoMensagem"></p>
+
+    <div class="notice">
+      O envio da solicitação não representa assinatura
+      do contrato nem confirmação de pagamento.
+    </div>
+
+    <div class="form-actions">
+      <a class="btn btn-gold" id="pagamento"
+        href="https://link.mercadopago.com.br/pontoweb1"
+        target="_blank" rel="noopener noreferrer" hidden>
+        Acessar Mercado Pago
+      </a>
+
+      <button class="btn btn-secondary" type="button" id="salvarSolicitacao">
+        Salvar resumo da solicitação
+      </button>
+
+      <a class="btn btn-navy" id="whatsappResultado"
+        href="https://wa.me/5569993842735"
+        target="_blank" rel="noopener noreferrer" hidden>
+        Continuar pelo WhatsApp
+      </a>
+    </div>
+
+    <p class="note">
+      Pague somente após a aprovação da proposta
+      e a conferência do valor informado pelo escritório.
+    </p>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-bottom">
+    <span>© <span id="ano"></span> Casa Contábil</span>
+    <a href="index.html">Voltar ao início</a>
+    <a href="privacidade.html">Privacidade</a>
+  </div>
+</footer>
+
+</body>
+</html>
+
