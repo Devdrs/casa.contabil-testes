@@ -9,7 +9,7 @@ window.CASA_CONFIG = Object.freeze({
 
   modoTeste: true,
 
-  supabaseUrl: "",
+  supabaseUrl: "https://fxpvnvhwmlmazxqbcgyj.supabase.co",
 
   endpoints: {
     solicitacao: "/functions/v1/criar-solicitacao"
