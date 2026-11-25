@@ -1,1 +1,24 @@
 
+# Credenciais
+.env
+.env.*
+!.env.example
+
+# Supabase
+supabase/.temp/
+supabase/.branches/
+
+# Dependencias
+node_modules/
+
+# Arquivos locais
+*.log
+.DS_Store
+Thumbs.db
+
+# Certificados e chaves
+*.pem
+*.key
+*.pfx
+*.p12
+
