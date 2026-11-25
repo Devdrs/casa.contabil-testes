@@ -21,13 +21,28 @@ jobs:
       SUPABASE_PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
 
     steps:
+
       - name: Baixar repositorio
         uses: actions/checkout@v4
 
       - name: Instalar Supabase CLI
         uses: supabase/setup-cli@v1
         with:
-          version: latest
+          version: 2.39.2
+
+      - name: Verificar versao instalada
+        run: supabase --version
+
+      - name: Verificar credenciais
+        shell: bash
+        run: |
+          for var in SUPABASE_ACCESS_TOKEN SUPABASE_DB_PASSWORD SUPABASE_PROJECT_ID; do
+            if [ -z "${!var}" ]; then
+              echo "::error::Credencial ausente: $var"
+              exit 1
+            fi
+          done
+          echo "Credenciais configuradas."
 
       - name: Conectar projeto de testes
         run: supabase link --project-ref "$SUPABASE_PROJECT_ID"
@@ -41,3 +56,5 @@ jobs:
       - name: Conferir historico
         run: supabase migration list
 
+      - name: Finalizar implantacao
+        run: echo "Implantacao concluida com sucesso."
