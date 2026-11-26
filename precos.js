@@ -1,239 +1,120 @@
 
-"use strict";
+/* =====================================================
+   CASA CONTÁBIL
+   TABELA DE HONORÁRIOS CONTÁBEIS
+   Arquivo: precos.js
+   Ambiente: TESTES
+   ===================================================== */
 
-window.CASA_PRECOS = {
+(function () {
+    "use strict";
 
-  versao: "2026-11-teste",
+    const setores = [
+        "Serviço",
+        "Comércio",
+        "Indústria",
+        "Multissetorial"
+    ];
 
-  setores: [
-    "Serviços",
-    "Comércio",
-    "Indústria",
-    "Multissetorial"
-  ],
+    const faixas = [
+        ["MEI", "Até R$ 81.000,00"],
+        ["ME", "Até R$ 180.000,00"],
+        ["ME", "R$ 180.000,01 a R$ 360.000,00"],
+        ["EPP", "R$ 360.000,01 a R$ 720.000,00"],
+        ["EPP", "R$ 720.000,01 a R$ 1.800.000,00"],
+        ["EPP", "R$ 1.800.000,01 a R$ 3.600.000,00"],
+        ["EPP", "R$ 3.600.000,01 a R$ 4.800.000,00"]
+    ];
 
-  faixas: [
-    "Até R$ 180.000,00",
-    "R$ 180.000,01 a R$ 360.000,00",
-    "R$ 360.000,01 a R$ 720.000,00",
-    "R$ 720.000,01 a R$ 1.800.000,00",
-    "R$ 1.800.000,01 a R$ 3.600.000,00",
-    "R$ 3.600.000,01 a R$ 4.800.000,00",
-    "Acima de R$ 4.800.000,00"
-  ],
+    /* =================================================
+       01. SIMPLES NACIONAL
 
-  mensal: {
+       Ordem dos valores:
+       Serviço, Comércio, Indústria, Multissetorial
+       ================================================= */
 
-    "MEI": [
-      [400, 550, 700, 800]
-    ],
+    const simplesNacional = [
+        [400, 550, 700, 800],
+        [800, 1100, 1250, 1350],
+        [1200, 1850, 2100, 2250],
+        [2250, 2450, 2650, 3120],
+        [3250, 3505, 3625, 4120],
+        [4680, 4985, 5245, 6120],
+        [5850, 6450, 6875, 7850]
+    ];
 
-    "Simples Nacional": [
-      [800, 1100, 1250, 1350],
-      [1200, 1850, 2100, 2250],
-      [2250, 2450, 2650, 3120],
-      [3250, 3505, 3625, 4120],
-      [4680, 4985, 5245, 6120],
-      [5850, 6450, 6875, 7850]
-    ],
+    /* =================================================
+       02. LUCRO PRESUMIDO
+       ================================================= */
 
-    "Lucro Presumido": [
-      [950, 1220, 1320, 1750],
-      [2120, 2320, 2485, 2950],
-      [4395, 4645, 4765, 5510],
-      [5205, 5450, 5500, 6485],
-      [6285, 6530, 6685, 7650],
-      [8450, 8710, 8830, 10320]
-    ],
+    const lucroPresumido = [
+        null,
+        [950, 1220, 1320, 1750],
+        [2120, 2320, 2485, 2950],
+        [4395, 4645, 4765, 5510],
+        [5205, 5450, 5500, 6485],
+        [6285, 6530, 6685, 7650],
+        [8450, 8710, 8830, 10320]
+    ];
 
-    "Lucro Real": [
-      [1650, 1880, 2000, 2150],
-      [3200, 3420, 3625, 3995],
-      [3950, 4210, 4420, 5200],
-      [6200, 6450, 6850, 7120],
-      [9100, 10120, 10295, 11200],
-      [13120, 13350, 13450, 15800]
-    ]
-  },
+    /* =================================================
+       03. LUCRO REAL
+       ================================================= */
 
-  departamentoPessoal: [
-    { ate: 2, valor: 165.50 },
-    { ate: 5, valor: 145.60 },
-    { ate: 10, valor: 129.50 },
-    { ate: 20, valor: 118.20 },
-    { ate: 40, valor: 107.50 },
-    { ate: Infinity, valor: 87.30 }
-  ],
+    const lucroReal = [
+        null,
+        [1650, 1880, 2000, 2150],
+        [3200, 3420, 3625, 3995],
+        [3950, 4210, 4420, 5200],
+        [6200, 6450, 6850, 7120],
+        [9100, 10120, 10295, 11200],
+        [13120, 13350, 13450, 15800]
+    ];
 
-  servicos: {
+    /* =================================================
+       04. ORGANIZAÇÃO DAS TABELAS
+       ================================================= */
 
-    mensal: {
-      nome: "Contabilidade mensal",
-      valor: null,
-      unidade: "mês",
-      categoria: "mensal"
-    },
+    const tabelas = {
+        "Simples Nacional": simplesNacional,
+        "Lucro Presumido": lucroPresumido,
+        "Lucro Real": lucroReal
+    };
 
-    fiscal: {
-      nome: "Departamento fiscal",
-      valor: null,
-      unidade: "orçamento",
-      categoria: "fiscal"
-    },
+    const precosMensais = [];
 
-    dp: {
-      nome: "Departamento pessoal",
-      valor: null,
-      unidade: "mês",
-      categoria: "dp"
-    },
+    Object.entries(tabelas).forEach(
+        ([regime, valores]) => {
 
-    abertura: {
-      nome: "Abertura de empresa",
-      valor: null,
-      unidade: "processo",
-      categoria: "abertura"
-    },
+            valores.forEach((linha, indice) => {
 
-    abertura_simples: {
-      nome: "Abertura ME/EPP - Simples Nacional",
-      valor: 800,
-      unidade: "processo",
-      categoria: "abertura"
-    },
+                if (!linha) {
+                    return;
+                }
 
-    abertura_presumido: {
-      nome: "Abertura - Lucro Presumido",
-      valor: 950,
-      unidade: "processo",
-      categoria: "abertura"
-    },
+                const [porte, faixa] = faixas[indice];
 
-    abertura_real: {
-      nome: "Abertura - Lucro Real",
-      valor: 1200,
-      unidade: "processo",
-      categoria: "abertura"
-    },
+                linha.forEach((valor, setorIndice) => {
 
-    abertura_mei: {
-      nome: "Formalização MEI",
-      valor: null,
-      unidade: "orçamento",
-      categoria: "abertura"
-    },
+                    precosMensais.push({
+                        regime: regime,
+                        porte: porte,
+                        faixa: faixa,
+                        setor: setores[setorIndice],
+                        valor: valor
+                    });
 
-    alteracao_mei: {
-      nome: "Alteração MEI - assessoria",
-      valor: 400,
-      unidade: "processo",
-      categoria: "regularizacao"
-    },
+                });
 
-    alteracao: {
-      nome: "Alteração ME/EPP",
-      valor: 600,
-      unidade: "processo",
-      categoria: "regularizacao"
-    },
+            });
 
-    baixa_mei: {
-      nome: "Baixa MEI - assessoria",
-      valor: 600,
-      unidade: "processo",
-      categoria: "regularizacao"
-    },
+        }
+    );
 
-    baixa: {
-      nome: "Baixa ME/EPP",
-      valor: 800,
-      unidade: "processo",
-      categoria: "regularizacao"
-    },
+    /* =================================================
+       05. DISPONIBILIZAÇÃO PARA O AUTOATENDIMENTO
+       ================================================= */
 
-    dasn: {
-      nome: "Declaração anual MEI",
-      valor: 250,
-      unidade: "declaração",
-      categoria: "fiscal"
-    },
+    window.PRECOS_MENSAIS = precosMensais;
 
-    irpf: {
-      nome: "Imposto de Renda Pessoa Física",
-      valor: 300,
-      unidade: "declaração",
-      categoria: "irpf"
-    },
-
-    itr: {
-      nome: "Declaração ITR",
-      valor: 350,
-      unidade: "declaração",
-      categoria: "rural"
-    },
-
-    nfse: {
-      nome: "Emissão de NFS-e",
-      valor: 50,
-      unidade: "serviço",
-      categoria: "fiscal"
-    },
-
-    nfe: {
-      nome: "Emissão de NF-e / NFA-e",
-      valor: 100,
-      unidade: "serviço",
-      categoria: "fiscal"
-    },
-
-    cnd: {
-      nome: "Consulta fiscal / CND",
-      valor: 200,
-      unidade: "serviço",
-      categoria: "regularizacao"
-    },
-
-    consultoria: {
-      nome: "Consultoria contábil",
-      valor: 250,
-      unidade: "hora",
-      categoria: "consultoria"
-    },
-
-    consultoria_tributaria: {
-      nome: "Consultoria tributária",
-      valor: 625,
-      unidade: "hora",
-      categoria: "consultoria"
-    },
-
-    planejamento: {
-      nome: "Planejamento tributário",
-      valor: 760,
-      unidade: "hora",
-      categoria: "consultoria"
-    },
-
-    rescisao: {
-      nome: "Rescisão trabalhista",
-      valor: 100,
-      unidade: "rescisão",
-      categoria: "dp"
-    },
-
-    bpo: {
-      nome: "BPO Financeiro",
-      valor: null,
-      unidade: "orçamento",
-      categoria: "bpo"
-    },
-
-    regularizacao: {
-      nome: "Regularização empresarial",
-      valor: null,
-      unidade: "orçamento",
-      categoria: "regularizacao"
-    }
-  }
-};
-
+})();
