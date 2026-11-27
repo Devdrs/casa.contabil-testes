@@ -1,7 +1,6 @@
 
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
 
     <meta charset="UTF-8">
@@ -18,7 +17,6 @@
     <script src="checkout.js" defer></script>
 
 </head>
-
 <body class="cc-shop">
 
 <header class="cc-shop-header">
@@ -35,8 +33,6 @@
 
             <a href="atendimento.html">Serviços</a>
 
-            <a href="login.html">Área do cliente</a>
-
         </nav>
 
     </div>
@@ -47,14 +43,14 @@
 
     <section class="cc-panel">
 
-        <h1>Finalizar contratação</h1>
+        <h2>Finalizar contratação</h2>
 
         <p>
             Confira os serviços, informe seus dados
             e escolha a forma de pagamento.
         </p>
 
-        <p role="status">
+        <p class="cc-notice">
             Ambiente de testes. Não informe dados reais.
             Nenhuma cobrança será realizada.
         </p>
@@ -62,97 +58,61 @@
         <p id="checkout-status" role="status"></p>
 
         <a href="atendimento.html">
-            Voltar para os serviços
+            ← Voltar para os serviços
         </a>
 
     </section>
 
     <!-- ETAPA 01 - CADASTRO -->
 
-    <section class="cc-panel" id="etapa-cadastro">
+    <section class="cc-panel" id="etapa-cadastro" hidden>
 
         <h2>01. Identificação do cliente</h2>
 
-        <form id="form-checkout">
+        <form id="form-checkout" autocomplete="off">
 
             <label for="perfil">Tipo de cliente</label>
 
             <select id="perfil" name="perfil" required>
 
                 <option value="">Selecione</option>
-
                 <option value="pf">Pessoa física</option>
-
                 <option value="pj">Pessoa jurídica</option>
-
                 <option value="mei">MEI</option>
-
                 <option value="rural">Produtor rural</option>
 
             </select>
 
             <label for="nome">Nome completo</label>
 
-            <input
-                id="nome"
-                name="nome"
-                type="text"
-                maxlength="150"
-                autocomplete="name"
-                required
-            >
+            <input id="nome" name="nome" type="text"
+                   maxlength="120" required>
 
             <label for="email">E-mail</label>
 
-            <input
-                id="email"
-                name="email"
-                type="email"
-                maxlength="150"
-                autocomplete="email"
-                required
-            >
+            <input id="email" name="email" type="email"
+                   maxlength="150" required>
 
             <label for="whatsapp">WhatsApp</label>
 
-            <input
-                id="whatsapp"
-                name="whatsapp"
-                type="tel"
-                maxlength="25"
-                autocomplete="tel"
-                required
-            >
+            <input id="whatsapp" name="whatsapp"
+                   type="tel" maxlength="25" required>
 
             <label for="cidade_uf">Cidade e estado</label>
 
-            <input
-                id="cidade_uf"
-                name="cidade_uf"
-                type="text"
-                maxlength="100"
-                required
-            >
+            <input id="cidade_uf" name="cidade_uf"
+                   type="text" maxlength="100" required>
 
             <div id="dados-empresa" hidden>
 
-                <label for="razao_social">
-                    Razão social
-                </label>
+                <label for="razao_social">Razão social</label>
 
-                <input
-                    id="razao_social"
-                    name="razao_social"
-                    maxlength="150"
-                >
+                <input id="razao_social"
+                       name="razao_social" maxlength="150">
 
                 <label for="cnpj">CNPJ, se existente</label>
 
-                <input
-                    id="cnpj"
-                    name="cnpj"
-                    maxlength="18"
-                >
+                <input id="cnpj" name="cnpj" maxlength="18">
 
             </div>
 
@@ -160,12 +120,8 @@
                 Informações adicionais
             </label>
 
-            <textarea
-                id="observacoes"
-                name="observacoes"
-                maxlength="2000"
-                rows="4"
-            ></textarea>
+            <textarea id="observacoes" name="observacoes"
+                      maxlength="2000" rows="4"></textarea>
 
             <button type="submit" id="btn-revisar">
 
@@ -190,11 +146,9 @@
         <div id="resumo-financeiro"></div>
 
         <p>
-
             Os serviços que exigem consulta prévia
             não serão cobrados antes da aprovação
             de um orçamento individual.
-
         </p>
 
         <label class="cc-check">
@@ -205,34 +159,28 @@
 
                 Li e aceito os
 
-                <a href="termos.html"
-                   target="_blank"
+                <a href="termos.html" target="_blank"
                    rel="noopener noreferrer">
                     termos de contratação
                 </a>
 
-                e a
+                e declaro ter lido o
 
-                <a href="privacidade.html"
-                   target="_blank"
+                <a href="privacidade.html" target="_blank"
                    rel="noopener noreferrer">
-                    política de privacidade.
-                </a>
+                    aviso de privacidade
+                </a>.
 
             </span>
 
         </label>
 
         <button type="button" id="btn-pagamento" disabled>
-
             Continuar para finalização
-
         </button>
 
         <button type="button" id="btn-voltar-cadastro">
-
             Voltar
-
         </button>
 
     </section>
@@ -251,12 +199,8 @@
 
             <label class="cc-check">
 
-                <input
-                    type="radio"
-                    name="metodo"
-                    value="pix"
-                    checked
-                >
+                <input type="radio" name="metodo"
+                       value="pix" checked>
 
                 Pix
 
@@ -264,11 +208,8 @@
 
             <label class="cc-check">
 
-                <input
-                    type="radio"
-                    name="metodo"
-                    value="cartao"
-                >
+                <input type="radio" name="metodo"
+                       value="cartao">
 
                 Cartão de crédito
 
@@ -276,11 +217,8 @@
 
             <label class="cc-check">
 
-                <input
-                    type="radio"
-                    name="metodo"
-                    value="boleto"
-                >
+                <input type="radio" name="metodo"
+                       value="boleto">
 
                 Boleto bancário
 
@@ -288,7 +226,7 @@
 
         </fieldset>
 
-        <p id="mensagem-pagamento"></p>
+        <p id="mensagem-pagamento" role="status"></p>
 
         <button type="button" id="btn-confirmar" disabled>
 
@@ -304,26 +242,22 @@
 
     </section>
 
-    <!-- SUPORTE -->
+    <!-- ATENDIMENTO -->
 
     <section class="cc-panel">
 
         <h2>Precisa de atendimento?</h2>
 
         <p>
-
             Fale diretamente com a Casa Contábil
             para esclarecer dúvidas, solicitar uma
             análise ou negociar condições.
-
         </p>
 
-        <a
-            id="link-whatsapp"
-            href="https://wa.me/5569993842735"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
+        <a id="link-whatsapp"
+           href="https://wa.me/5569993842735"
+           target="_blank"
+           rel="noopener noreferrer">
 
             Atendimento pelo WhatsApp
 
@@ -335,11 +269,7 @@
 
 <footer class="container">
 
-    <p>
-
-        Casa Contábil — Ji-Paraná/RO
-
-    </p>
+    <p>Casa Contábil — Ji-Paraná/RO</p>
 
     <a href="privacidade.html">Privacidade</a>
 
@@ -350,6 +280,4 @@
 </footer>
 
 </body>
-
 </html>
-
