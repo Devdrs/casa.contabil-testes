@@ -1,15 +1,11 @@
 
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <meta name="description"
-          content="Central de contratação de serviços da Casa Contábil.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Central de contratação de serviços da Casa Contábil.">
+    <meta name="robots" content="noindex, nofollow">
 
     <title>Autoatendimento | Casa Contábil</title>
 
@@ -18,16 +14,11 @@
     <script defer src="precos.js"></script>
     <script defer src="atendimento.js"></script>
 </head>
-
 <body>
 
 <main class="cc-shop">
 
-    <!-- RETORNO AO SITE -->
-
-    <a href="index.html">
-        ← Voltar ao site
-    </a>
+    <a href="index.html">← Voltar ao site</a>
 
     <h1>Central de serviços contábeis</h1>
 
@@ -41,13 +32,9 @@
         Nenhuma cobrança ou solicitação será enviada.
     </p>
 
-    <!-- 01. CATÁLOGO DE SERVIÇOS -->
-
     <h2>Serviços avulsos</h2>
 
     <div id="catalogo" class="cc-grid"></div>
-
-    <!-- 02. SIMULADOR DE HONORÁRIOS -->
 
     <h2>Honorários mensais</h2>
 
@@ -70,171 +57,40 @@
 
         <label>
             Quantidade de vínculos
-            <input id="vinculos"
-                   type="number"
-                   min="0"
-                   max="10000"
-                   value="0">
+            <input id="vinculos" type="number"
+                   min="0" max="10000" step="1" value="0">
         </label>
 
     </div>
 
     <p id="estimativa" aria-live="polite"></p>
 
-    <button id="mensal" type="button">
+    <button id="mensal" type="button" disabled>
         Adicionar orçamento mensal
     </button>
-
-    <!-- 03. CARRINHO DE SERVIÇOS -->
 
     <h2>Meu carrinho</h2>
 
     <div id="carrinho"></div>
 
-    <p id="total" aria-live="polite"></p>
-
-    <!-- 04. DOCUMENTAÇÃO NECESSÁRIA -->
+    <div id="total" aria-live="polite"></div>
 
     <h2>Documentação inicial</h2>
 
     <div id="docs"></div>
 
-    <!-- 05. CADASTRO DO CLIENTE -->
+    <button id="continuar" type="button" disabled>
+        Finalizar contratação
+    </button>
 
-    <h2>Cadastro único</h2>
-
-    <form id="cadastro">
-
-        <div class="cc-grid">
-
-            <label>
-                Nome completo
-
-                <input name="nome"
-                       type="text"
-                       required
-                       maxlength="120">
-            </label>
-
-            <label>
-                E-mail
-
-                <input name="email"
-                       type="email"
-                       required>
-            </label>
-
-            <label>
-                WhatsApp
-
-                <input name="whatsapp"
-                       type="tel"
-                       required
-                       pattern="[0-9+\(\) .\-]{10,25}">
-            </label>
-
-            <label>
-                Cidade / UF
-
-                <input name="cidade_uf"
-                       type="text"
-                       required>
-            </label>
-
-            <label>
-                Empresa
-
-                <input name="razao_social"
-                       type="text">
-            </label>
-
-            <label>
-                CNPJ (opcional)
-
-                <input name="cnpj"
-                       type="text"
-                       maxlength="18">
-            </label>
-
-        </div>
-
-        <label>
-            Observações complementares
-
-            <textarea name="observacoes"
-                      maxlength="1800"></textarea>
-        </label>
-
-        <!-- ACEITE DOS TERMOS -->
-
-        <label class="cc-check">
-
-            <input type="checkbox" required>
-
-            Li os
-
-            <a href="termos.html"
-               target="_blank"
-               rel="noopener noreferrer">
-                termos de contratação
-            </a>
-
-            e o
-
-            <a href="privacidade.html"
-               target="_blank"
-               rel="noopener noreferrer">
-                aviso de privacidade
-            </a>.
-
-        </label>
-
-        <button id="continuar" type="submit">
-            Revisar pedido
-        </button>
-
-    </form>
-
-    <!-- 06. RESUMO DO PEDIDO -->
-
-    <section id="revisao" hidden>
-
-        <h2>Resumo do pedido</h2>
-
-        <div id="resumo"></div>
-
-        <!-- PAGAMENTO ONLINE -->
-
-        <button id="pagar"
-                type="button"
-                disabled>
-
-            Realizar pagamento — integração pendente
-
-        </button>
-
-        <p>
-            O pagamento antecipado será sujeito
-            à análise técnica da Casa Contábil.
-        </p>
-
-        <p>
-            Serviços sob orçamento serão tratados
-            separadamente.
-        </p>
-
-        <!-- SOLICITAÇÃO DE REUNIÃO -->
-
-        <button id="reuniao" type="button">
-
-            Solicitar reunião pelo WhatsApp
-
-        </button>
-
-    </section>
+    <p>
+        <a href="https://wa.me/5569993842735"
+           target="_blank" rel="noopener noreferrer">
+            Preciso de atendimento pelo WhatsApp
+        </a>
+    </p>
 
 </main>
 
 </body>
-
 </html>
