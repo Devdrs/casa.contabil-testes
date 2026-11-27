@@ -1540,3 +1540,168 @@ if (document.readyState === "loading") {
 // FIM DO ARQUIVO
 // CASA CONTABIL - VERSAO 1.1
 // ======================================================
+
+// ======================================================
+// CASA CONTABIL
+// INTEGRACAO DO CARRINHO COM CHECKOUT
+// VERSAO 1.2
+// ======================================================
+
+function finalizarContratacao() {
+
+    if (!carrinho.size) {
+
+        alert("Selecione pelo menos um serviço.");
+
+        return;
+
+    }
+
+    const itensCheckout = Array.from(
+
+        carrinho.values()
+
+    ).map(item => ({
+
+        codigo: item.codigo,
+
+        nome: item.nome,
+
+        preco: item.preco,
+
+        tipo: item.tipo,
+
+        ativo: item.ativo,
+
+        consultaPrevia: item.consultaPrevia,
+
+        pagamentoAntecipado:
+            item.pagamentoAntecipado,
+
+        documentos: item.documentos || [],
+
+        documentosDisponiveis:
+
+            (item.documentos || []).filter(
+
+                documento =>
+
+                    documentosMarcados.has(documento)
+
+            ),
+
+        dadosSimulacao:
+
+            item.dadosSimulacao || null
+
+    }));
+
+    try {
+
+        sessionStorage.setItem(
+
+            "cc_carrinho_v2",
+
+            JSON.stringify(itensCheckout)
+
+        );
+
+        window.location.href = "checkout.html";
+
+    } catch {
+
+        alert(
+
+            "Não foi possível transferir o carrinho. " +
+
+            "Confira as configurações do navegador."
+
+        );
+
+    }
+
+}
+
+function integrarCheckout() {
+
+    const continuar = document.getElementById(
+
+        "continuar"
+
+    );
+
+    const cadastro = document.getElementById(
+
+        "cadastro"
+
+    );
+
+    const revisao = document.getElementById(
+
+        "revisao"
+
+    );
+
+    if (!continuar || !cadastro) {
+
+        console.error(
+
+            "Não foi possível integrar o checkout."
+
+        );
+
+        return;
+
+    }
+
+    // Retirar o botao do formulario antigo.
+
+    const novoBotao = continuar.cloneNode(true);
+
+    novoBotao.type = "button";
+
+    novoBotao.textContent =
+
+        "Finalizar contratação";
+
+    continuar.remove();
+
+    cadastro.before(novoBotao);
+
+    // Ocultar o cadastro antigo.
+
+    cadastro.hidden = true;
+
+    if (revisao) {
+
+        revisao.hidden = true;
+
+    }
+
+    novoBotao.disabled = carrinho.size === 0;
+
+    novoBotao.addEventListener(
+
+        "click",
+
+        finalizarContratacao
+
+    );
+
+}
+
+if (document.readyState === "loading") {
+
+    document.addEventListener(
+
+        "DOMContentLoaded",
+
+        integrarCheckout
+
+    );
+
+} else {
+
+    integrarCheckout();
+
+}
