@@ -1,1 +1,355 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Finalizar contratação | Casa Contábil</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="checkout.js" defer></script>
+
+</head>
+
+<body class="cc-shop">
+
+<header class="cc-shop-header">
+
+    <div class="container">
+
+        <h1>Casa Contábil</h1>
+
+        <p>Central de contratação de serviços</p>
+
+        <nav aria-label="Navegação">
+
+            <a href="index.html">Início</a>
+
+            <a href="atendimento.html">Serviços</a>
+
+            <a href="login.html">Área do cliente</a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+<main class="container">
+
+    <section class="cc-panel">
+
+        <h1>Finalizar contratação</h1>
+
+        <p>
+            Confira os serviços, informe seus dados
+            e escolha a forma de pagamento.
+        </p>
+
+        <p role="status">
+            Ambiente de testes. Não informe dados reais.
+            Nenhuma cobrança será realizada.
+        </p>
+
+        <p id="checkout-status" role="status"></p>
+
+        <a href="atendimento.html">
+            Voltar para os serviços
+        </a>
+
+    </section>
+
+    <!-- ETAPA 01 - CADASTRO -->
+
+    <section class="cc-panel" id="etapa-cadastro">
+
+        <h2>01. Identificação do cliente</h2>
+
+        <form id="form-checkout">
+
+            <label for="perfil">Tipo de cliente</label>
+
+            <select id="perfil" name="perfil" required>
+
+                <option value="">Selecione</option>
+
+                <option value="pf">Pessoa física</option>
+
+                <option value="pj">Pessoa jurídica</option>
+
+                <option value="mei">MEI</option>
+
+                <option value="rural">Produtor rural</option>
+
+            </select>
+
+            <label for="nome">Nome completo</label>
+
+            <input
+                id="nome"
+                name="nome"
+                type="text"
+                maxlength="150"
+                autocomplete="name"
+                required
+            >
+
+            <label for="email">E-mail</label>
+
+            <input
+                id="email"
+                name="email"
+                type="email"
+                maxlength="150"
+                autocomplete="email"
+                required
+            >
+
+            <label for="whatsapp">WhatsApp</label>
+
+            <input
+                id="whatsapp"
+                name="whatsapp"
+                type="tel"
+                maxlength="25"
+                autocomplete="tel"
+                required
+            >
+
+            <label for="cidade_uf">Cidade e estado</label>
+
+            <input
+                id="cidade_uf"
+                name="cidade_uf"
+                type="text"
+                maxlength="100"
+                required
+            >
+
+            <div id="dados-empresa" hidden>
+
+                <label for="razao_social">
+                    Razão social
+                </label>
+
+                <input
+                    id="razao_social"
+                    name="razao_social"
+                    maxlength="150"
+                >
+
+                <label for="cnpj">CNPJ, se existente</label>
+
+                <input
+                    id="cnpj"
+                    name="cnpj"
+                    maxlength="18"
+                >
+
+            </div>
+
+            <label for="observacoes">
+                Informações adicionais
+            </label>
+
+            <textarea
+                id="observacoes"
+                name="observacoes"
+                maxlength="2000"
+                rows="4"
+            ></textarea>
+
+            <button type="submit" id="btn-revisar">
+
+                Continuar para revisão
+
+            </button>
+
+        </form>
+
+    </section>
+
+    <!-- ETAPA 02 - REVISAO -->
+
+    <section class="cc-panel" id="etapa-revisao" hidden>
+
+        <h2>02. Revisão da contratação</h2>
+
+        <div id="resumo-cliente"></div>
+
+        <div id="resumo-servicos"></div>
+
+        <div id="resumo-financeiro"></div>
+
+        <p>
+
+            Os serviços que exigem consulta prévia
+            não serão cobrados antes da aprovação
+            de um orçamento individual.
+
+        </p>
+
+        <label class="cc-check">
+
+            <input type="checkbox" id="aceite-termos">
+
+            <span>
+
+                Li e aceito os
+
+                <a href="termos.html"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    termos de contratação
+                </a>
+
+                e a
+
+                <a href="privacidade.html"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    política de privacidade.
+                </a>
+
+            </span>
+
+        </label>
+
+        <button type="button" id="btn-pagamento" disabled>
+
+            Continuar para finalização
+
+        </button>
+
+        <button type="button" id="btn-voltar-cadastro">
+
+            Voltar
+
+        </button>
+
+    </section>
+
+    <!-- ETAPA 03 - PAGAMENTO -->
+
+    <section class="cc-panel" id="etapa-pagamento" hidden>
+
+        <h2>03. Finalização</h2>
+
+        <div id="valor-pagamento"></div>
+
+        <fieldset id="metodos-pagamento">
+
+            <legend>Forma de pagamento pretendida</legend>
+
+            <label class="cc-check">
+
+                <input
+                    type="radio"
+                    name="metodo"
+                    value="pix"
+                    checked
+                >
+
+                Pix
+
+            </label>
+
+            <label class="cc-check">
+
+                <input
+                    type="radio"
+                    name="metodo"
+                    value="cartao"
+                >
+
+                Cartão de crédito
+
+            </label>
+
+            <label class="cc-check">
+
+                <input
+                    type="radio"
+                    name="metodo"
+                    value="boleto"
+                >
+
+                Boleto bancário
+
+            </label>
+
+        </fieldset>
+
+        <p id="mensagem-pagamento"></p>
+
+        <button type="button" id="btn-confirmar" disabled>
+
+            Pagamento indisponível em testes
+
+        </button>
+
+        <button type="button" id="btn-voltar-revisao">
+
+            Voltar
+
+        </button>
+
+    </section>
+
+    <!-- SUPORTE -->
+
+    <section class="cc-panel">
+
+        <h2>Precisa de atendimento?</h2>
+
+        <p>
+
+            Fale diretamente com a Casa Contábil
+            para esclarecer dúvidas, solicitar uma
+            análise ou negociar condições.
+
+        </p>
+
+        <a
+            id="link-whatsapp"
+            href="https://wa.me/5569993842735"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+
+            Atendimento pelo WhatsApp
+
+        </a>
+
+    </section>
+
+</main>
+
+<footer class="container">
+
+    <p>
+
+        Casa Contábil — Ji-Paraná/RO
+
+    </p>
+
+    <a href="privacidade.html">Privacidade</a>
+
+    |
+
+    <a href="termos.html">Termos de contratação</a>
+
+</footer>
+
+</body>
+
+</html>
+
